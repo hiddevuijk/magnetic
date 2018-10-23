@@ -40,7 +40,7 @@ int main()
 	double tsamp; // time between calculating averages
 	double teq;	// equilibration time
 	double L;	// box size
-
+	int nprint; // print status every nprint
 
 	
 	const string inputName = "input.txt";
@@ -59,6 +59,7 @@ int main()
 	tsamp = config.read<double>("tsamp");
 	teq = config.read<double>("teq");
 	L = config.read<double>("L");
+	nprint = config.read<int>("nprint");
 
 	double w = w0*2*acos(-1.)/L;
 	double bs = L/(nbin);
@@ -114,7 +115,7 @@ int main()
 	integrate(r,dr,v,p,deriv,teq,dt);
 	double t = 0;
 	for(int n=0;n<navg;++n) {
-		if(n%100==0) cout << n << '\t' << navg << endl;
+		if(n%nprint==0) cout << n << '\t' << navg << endl;
 		integrate(r,dr,v,p,deriv,tsamp-dt,dt);
 		// increment time by dt s.t. the last distplacement
 		// is dt
