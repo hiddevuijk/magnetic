@@ -56,8 +56,6 @@ void Deriv::operator() (
 	double etax,etay,etaz;
 
 	double Bri; // magnetic field at position ri
-	double norm, norm2; // used to normalize v vector
-	double vx, vy;  // values used in clalculation of v incr.
 	double dpx,dpy,dpz;
 	double v0x,v0y,v0z;
 	for(int i=0;i<N;++i) {
@@ -75,16 +73,12 @@ void Deriv::operator() (
 		v0y = v[i][1];
 		v0z = v[i][2];
 
-		//norm = sqrt(v[i][0]*v[i][0]+v[i][1]*v[i][1]);
-		vx = v[i][0] - Bri*v[i][1]*dt/m;
-		vy = v[i][1] + Bri*v[i][0]*dt/m;
-		norm2 = sqrt(vx*vx + vy*vy);
-		//vx *= norm/norm2;
-		//vy *= norm/norm2;
 
-		v[i][0] = vx + (-v[i][0]*dt+v0*p[i][0]*dt+ndist(ranNR)*sqrt_dt*sqrt2)/m;
-		v[i][1] = vy + (-v[i][1]*dt+v0*p[i][1]*dt+ndist(ranNR)*sqrt_dt*sqrt2)/m;
-		v[i][2] += (-v[i][2]*dt+v0*p[i][2]*dt+ndist(ranNR)*sqrt_dt*sqrt2)/m;	
+		v[i][0] += (-Bri*v[i][1]*dt - v[i][0]*dt + v0*p[i][0]*dt + 
+						ndist(ranNR)*sqrt_dt*sqrt2)/m;
+		v[i][1] += (Bri*v[i][0]*dt - v[i][1]*dt + v0*p[i][1]*dt +
+						ndist(ranNR)*sqrt_dt*sqrt2)/m;
+		v[i][2] += (-v[i][2]*dt + v0*p[i][2]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;	
 
 
 		if(v0>0) { 
