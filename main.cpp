@@ -1,10 +1,5 @@
+
 #include "ConfigFile.h"
-
-#include <iostream>
-#include <vector>
-#include <vector>
-#include <string>
-
 
 #include "nr3.h"
 #include "ran.h"
@@ -16,6 +11,13 @@
 #include "density.h"
 #include "orientation.h"
 #include "flux.h"
+
+
+#include <iostream>
+#include <vector>
+#include <vector>
+#include <string>
+
 
 using namespace std;
 
