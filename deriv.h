@@ -57,6 +57,9 @@ void Deriv::operator() (
 
 	double Bri; // magnetic field at position ri
 	double dpx,dpy,dpz;
+
+	// init wallForce to 0s because NoWall does noet change 
+	// this vector!!!!!
 	vector<double> wallForce(3,0.);
 	for(int i=0;i<N;++i) {
 
