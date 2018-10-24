@@ -11,7 +11,7 @@
 #include "density.h"
 #include "orientation.h"
 #include "flux.h"
-
+#include "walls.h"
 
 #include <iostream>
 #include <vector>

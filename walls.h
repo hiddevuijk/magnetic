@@ -1,9 +1,11 @@
+#ifndef GUARD_WALLS_H
+#define GUARD_WALLS_H
 
 class Wall {
 public:
 	virtual void f(
 		const std::vector<double>& vi,
-		std::vector<double>& Fwall);
+		std::vector<double>& Fwall) = 0;
 
 protected:
 	double L;
@@ -18,7 +20,7 @@ protected:
 class NoWall: public Wall {
 	void f(const std::vector<double>& vi,
 		std::vector<double>& Fwall) {};
-}
+};
 class TubeX: public Wall {
 public:
 	TubeX(double sigg, double epss,double l)
@@ -41,13 +43,13 @@ public:
 	Doughnut(double sigg, double epss, double ri,double ro) 
 		{sig = sigg; eps = epss; Ri = ri; Ro = ro;}
 	void f( const std::vector<double> &vi,
-		std::vector<double>& Fwall};
-}
+		std::vector<double>& Fwall);
+};
 
 
 
 
-
+#endif
 
 
 
