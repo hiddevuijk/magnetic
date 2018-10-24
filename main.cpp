@@ -44,6 +44,11 @@ int main()
 	double L;	// box size
 	int nprint; // print status every nprint
 
+	string wallType; // type of wall: none, tube, disk, doughnut 
+	double Ri;  	// inner radius of doughnut (only used if type == doughnut)
+	double Ro;		// outer radius of disk or dough. (only used in those cases)
+	double sig;		// sigma of LJ wall (only used if wallType != none)
+	double eps;		// epsilon of LJ wall (%)
 	
 	const string inputName = "input.txt";
 
@@ -62,6 +67,11 @@ int main()
 	teq = config.read<double>("teq");
 	L = config.read<double>("L");
 	nprint = config.read<int>("nprint");
+	wallType = config.read<string>("wallType");
+	Ri = config.read<double>("Ri");
+	Ro = config.read<double>("Ro");
+	sig = config.read<double>("sigma");
+	eps = config.read<double>("epsilon");
 
 	double w = w0*2*acos(-1.)/L;
 	double bs = L/(nbin);
