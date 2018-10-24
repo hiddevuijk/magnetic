@@ -48,8 +48,7 @@ public:
 
 	double f(const std::vector<double>& r) {
 		double d = sqrt( (r[0]-L/2)*(r[0]-L/2) + 
-						 (r[1]-L/2)*(r[1]-L/2) + 
-						 (r[2]-L/2)*(r[2]-L/2) );
+						 (r[1]-L/2)*(r[1]-L/2));
 		return B0+B*d;
 	}
 
