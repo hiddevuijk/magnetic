@@ -84,6 +84,7 @@ int main()
 	Disk wallDisk(sig,eps,rco,Ro);
 	Doughnut wallDough(sig,eps,rco,Ri,Ro);
 	Wall* wall_ptr;
+	// use wall according to wallType
 	if(wallType == "none") {
 		wall_ptr = &wallNone;
 	}else if(wallType == "tube") {
