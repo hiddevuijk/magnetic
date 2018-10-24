@@ -91,7 +91,7 @@ public:
 		} else if(d<Ri+rco) {
 			double force = flj(d-Ri);
 			Fwall[0] = force*(r[0]-L/2)/d;
-			Fwall[1] = force*(r[0]-L/2)/d;
+			Fwall[1] = force*(r[1]-L/2)/d;
 		}
 
 	}
