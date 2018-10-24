@@ -140,7 +140,7 @@ int main()
 
 	// the deriv objecs takes care of 
 	// a single step of dt
-	Deriv deriv(N,m,Dr,v0,B,w,ranNR);
+	Deriv deriv(N,m,Dr,v0,B,w,wall_ptr,ranNR);
 
 	// integrates uses the deriv object
 	// to increment the system teq in time,

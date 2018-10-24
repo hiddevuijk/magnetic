@@ -52,6 +52,8 @@ public:
 			} else if(r[1]<rco) {
 					Fwall[1] = flj(r[1]);
 			} else Fwall[1] = 0;
+			Fwall[0] = 0;
+			Fwall[2] = 0;
 	}
 };
 

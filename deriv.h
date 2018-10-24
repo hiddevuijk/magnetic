@@ -7,15 +7,17 @@
 #include <vector>
 #include "vecmanip.h"
 #include "box_muller.h"
+#include "walls.h"
 
 struct Deriv {
 	public:
 
 	Deriv(int NN, double mm, double Drr,
 		double v00, double BB, double ww,
-		Ranq2 ranNRR):
+		Wall* wall_ptrr, Ranq2 ranNRR):
 		N(NN),m(mm),sqrt_2Dr(std::sqrt(2*Drr)), v0(v00),
-		B(BB), w(ww),ranNR(ranNRR), sqrt2(std::sqrt(2.)){}
+		B(BB), w(ww),wall_ptr(wall_ptrr),
+		 ranNR(ranNRR), sqrt2(std::sqrt(2.)){}
 
 	// evolves the state of the system to t+dt
 	void  operator() (
@@ -33,6 +35,7 @@ struct Deriv {
 		double B;	// magnetic field strength
 		double w;	// w = 2 pi w0/L, w0=number of periods
 		double sqrt2;
+		Wall* wall_ptr;
 		Ranq2 ranNR;	// the ranom number generator
 
 		double Br(const std::vector<double>& ri)
@@ -57,6 +60,7 @@ void Deriv::operator() (
 	double Bri; // magnetic field at position ri
 	double dpx,dpy,dpz;
 	double v0x,v0y,v0z;
+	vector<double> wallForce(3,0.);
 	for(int i=0;i<N;++i) {
 
 		Bri = Br(r[i]);
@@ -72,13 +76,14 @@ void Deriv::operator() (
 		v0y = v[i][1];
 		v0z = v[i][2];
 
+		wall_ptr->f(r[i],wallForce);
 
 		v[i][0] += (-Bri*v[i][1]*dt - v[i][0]*dt + v0*p[i][0]*dt + 
-						ndist(ranNR)*sqrt_dt*sqrt2)/m;
+						wallForce[0]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;
 		v[i][1] += (Bri*v[i][0]*dt - v[i][1]*dt + v0*p[i][1]*dt +
-						ndist(ranNR)*sqrt_dt*sqrt2)/m;
+						wallForce[1]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;
 		v[i][2] += (-v[i][2]*dt + v0*p[i][2]*dt + 
-						ndist(ranNR)*sqrt_dt*sqrt2)/m;	
+						wallForce[2]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;	
 
 
 		if(v0>0) { 
