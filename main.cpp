@@ -12,6 +12,7 @@
 #include "orientation.h"
 #include "flux.h"
 #include "walls.h"
+#include "bfield.h"
 
 #include <iostream>
 #include <vector>
