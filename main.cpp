@@ -49,6 +49,7 @@ int main()
 	double Ro;		// outer radius of disk or dough. (only used in those cases)
 	double sig;		// sigma of LJ wall (only used if wallType != none)
 	double eps;		// epsilon of LJ wall (%)
+	double rco;		// cutoff of potential
 	
 	const string inputName = "input.txt";
 
@@ -72,16 +73,16 @@ int main()
 	Ro = config.read<double>("Ro");
 	sig = config.read<double>("sigma");
 	eps = config.read<double>("epsilon");
-
+	rco = config.read<double>("rco");
 	double w = w0*2*acos(-1.)/L;
 	double bs = L/(nbin);
 
 
 	// define walls
 	NoWall wallNone;
-	TubeX wallTube(sig,eps,L);
-	Disk wallDisk(sig,eps,Ro);
-	Doughnut wallDough(sig,eps,Ri,Ro);
+	TubeX wallTube(sig,eps,rco,L);
+	Disk wallDisk(sig,eps,rco,Ro);
+	Doughnut wallDough(sig,eps,rco,Ri,Ro);
 	Wall* wall_ptr;
 	if(wallType == "none") {
 		wall_ptr = &wallNone;

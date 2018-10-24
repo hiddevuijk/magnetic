@@ -1,11 +1,30 @@
 #ifndef GUARD_WALLS_H
 #define GUARD_WALLS_H
 
+#include "vecmanip.h"
+
+
+#include <cmath>
+
+
 class Wall {
 public:
 	virtual void f(
-		const std::vector<double>& vi,
+		const std::vector<double>& ri,
 		std::vector<double>& Fwall) = 0;
+
+	// Lennard-Jones potential
+	double ulj(double r) {
+		double r6 = pow(sig/r,6);
+		return -4*eps*r6*(r6-1);
+		}
+
+	// force from LJ potential
+	double flj(double dist) {
+		double dist6 = pow(sig/dist,6);
+		return 24*eps*dist6*(2*dist6-1)/dist;
+		}
+
 
 protected:
 	double L;
@@ -14,25 +33,32 @@ protected:
 
 	double sig;
 	double eps;
-
+	double rco;
 };
 
 class NoWall: public Wall {
-	void f(const std::vector<double>& vi,
+	void f(const std::vector<double>& ri,
 		std::vector<double>& Fwall) {};
 };
+
 class TubeX: public Wall {
 public:
-	TubeX(double sigg, double epss,double l)
-		 {sig = sigg; eps = epss; L = l;}
-	void f( const std::vector<double>& vi,
-		std::vector<double>& Fwall) {};
+	TubeX(double sigg, double epss,double rcoo, double l)
+		 {sig = sigg; eps = epss;rco=rcoo, L = l;}
+	void f( const std::vector<double>& r,
+		std::vector<double>& Fwall) {
+			if(r[1]>(L-rco)) {
+					Fwall[1] = -flj(L-r[1]);
+			} else if(r[1]<rco) {
+					Fwall[1] = flj(r[1]);
+			} else Fwall[1] = 0;
+	}
 };
 
 class Disk: public Wall {
 public:
-	Disk(double sigg, double epss, double ro) 
-			{sig = sigg; eps = epss; Ro = ro;}
+	Disk(double sigg, double epss, double rcoo,double ro) 
+			{sig = sigg; eps = epss; rco=rcoo,Ro = ro;}
 	void f( const std::vector<double>& vi,
 		std::vector<double>& Fwall) {};
 };
@@ -40,8 +66,8 @@ public:
 
 class Doughnut: public Wall {
 public:
-	Doughnut(double sigg, double epss, double ri,double ro) 
-		{sig = sigg; eps = epss; Ri = ri; Ro = ro;}
+	Doughnut(double sigg, double epss,double rcoo, double ri,double ro) 
+		{sig = sigg; eps = epss;rco=rcoo, Ri = ri; Ro = ro;}
 	void f( const std::vector<double> &vi,
 		std::vector<double>& Fwall) {};
 };
