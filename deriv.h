@@ -14,10 +14,10 @@ struct Deriv {
 	public:
 
 	Deriv(int NN, double mm, double Drr,
-		double v00, double BB, double ww,
-		Wall* wall_ptrr, Bfield* bfield_ptrr, Ranq2 ranNRR):
-		N(NN),m(mm),sqrt_2Dr(std::sqrt(2*Drr)), v0(v00),
-		B(BB), w(ww),wall_ptr(wall_ptrr),
+		double v00, Wall* wall_ptrr, 
+		Bfield* bfield_ptrr, Ranq2 ranNRR):
+		N(NN),m(mm),sqrt_2Dr(std::sqrt(2*Drr)), 
+		v0(v00), wall_ptr(wall_ptrr),
 		bfield_ptr(bfield_ptrr), ranNR(ranNRR), 
 		sqrt2(std::sqrt(2.)){}
 
@@ -34,16 +34,11 @@ struct Deriv {
 		double m;	// mass of the particles
 		double sqrt_2Dr; // sqrt(2*Dr), Dr = rot. diff. const.
 		double v0;	// self-propulsion speed
-		double B;	// magnetic field strength
-		double w;	// w = 2 pi w0/L, w0=number of periods
 		double sqrt2;
 		Wall* wall_ptr;
 		Bfield* bfield_ptr;
 		Ranq2 ranNR;	// the ranom number generator
 
-		double Br(const std::vector<double>& ri)
-			{ return B*std::sin(w*ri[1]);}
-		
 };
 
 
