@@ -65,8 +65,8 @@ public:
 		std::vector<double>& Fwall) {
 		double d = sqrt( (r[0]-L/2)*(r[0]-L/2) +
 						 (r[1]-L/2)*(r[1]-L/2) );
-		if(d>Ro-rcu) {
-			double force = flj(R0-d);
+		if(d>Ro-rco) {
+			double force = flj(Ro-d);
 			Fwall[0] = -force*(r[0]-L/2)/d;
 			Fwall[1] = -force*(r[1]-L/2)/d;
 		}
@@ -80,15 +80,15 @@ class Doughnut: public Wall {
 public:
 	Doughnut(double sigg, double epss,double rcoo, double ri,double ro) 
 		{sig = sigg; eps = epss;rco=rcoo, Ri = ri; Ro = ro;}
-	void f( const std::vector<double> &vi,
+	void f( const std::vector<double> &r,
 		std::vector<double>& Fwall) {
 		double d = sqrt( (r[0]-L/2)*(r[0]-L/2) +
 						 (r[1]-L/2)*(r[1]-L/2) );
-		if(d>Ro-rcu) {
-			double force = flj(R0-d);
+		if(d>Ro-rco) {
+			double force = flj(Ro-d);
 			Fwall[0] = -force*(r[0]-L/2)/d;
 			Fwall[1] = -force*(r[1]-L/2)/d;
-		} else if(d<Ri+rcu) {
+		} else if(d<Ri+rco) {
 			double force = flj(d-Ri);
 			Fwall[0] = force*(r[0]-L/2)/d;
 			Fwall[1] = force*(r[0]-L/2)/d;
