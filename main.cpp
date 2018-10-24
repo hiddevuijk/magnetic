@@ -65,7 +65,7 @@ int main()
 	Dr = config.read<double>("Dr");
 	B = config.read<double>("B");
 	B0 = config.read<double>("B0");
-	BType = config.read<double>("Btype");
+	BType = config.read<string>("Btype");
 	v0 = config.read<double>("v0");
 	w0 = config.read<double>("w0");
 	dt = config.read<double>("dt");
