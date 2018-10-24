@@ -57,12 +57,12 @@ void Deriv::operator() (
 
 	double Bri; // magnetic field at position ri
 	double dpx,dpy,dpz;
-	double v0x,v0y,v0z;
 	vector<double> wallForce(3,0.);
 	for(int i=0;i<N;++i) {
 
-		//Bri = Br(r[i]);
 		Bri = bfield_ptr->f(r[i]);
+		wall_ptr->f(r[i],wallForce);
+
 		dr[i][0] = v[i][0]*dt;
 		dr[i][1] = v[i][1]*dt;
 		dr[i][2] = v[i][2]*dt;
@@ -70,11 +70,7 @@ void Deriv::operator() (
 		r[i][1] += dr[i][1];
 		r[i][2] += dr[i][2];
 
-		v0x = v[i][0];
-		v0y = v[i][1];
-		v0z = v[i][2];
 
-		wall_ptr->f(r[i],wallForce);
 
 		v[i][0] += (-Bri*v[i][1]*dt - v[i][0]*dt + v0*p[i][0]*dt + 
 						wallForce[0]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;
