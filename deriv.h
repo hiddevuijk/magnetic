@@ -18,8 +18,9 @@ struct Deriv {
 		Bfield* bfield_ptrr, Ranq2 ranNRR):
 		N(NN),m(mm),sqrt_2Dr(std::sqrt(2*Drr)), 
 		v0(v00), wall_ptr(wall_ptrr),
-		bfield_ptr(bfield_ptrr), ranNR(ranNRR), 
-		sqrt2(std::sqrt(2.)){}
+		bfield_ptr(bfield_ptrr), ranNR(ranNRR)
+		  {sqrt2 = std::sqrt(2.);}
+
 
 	// evolves the state of the system to t+dt
 	void  operator() (
@@ -34,11 +35,11 @@ struct Deriv {
 		double m;	// mass of the particles
 		double sqrt_2Dr; // sqrt(2*Dr), Dr = rot. diff. const.
 		double v0;	// self-propulsion speed
-		double sqrt2;
 		Wall* wall_ptr;
 		Bfield* bfield_ptr;
 		Ranq2 ranNR;	// the ranom number generator
 
+		double sqrt2;
 };
 
 
