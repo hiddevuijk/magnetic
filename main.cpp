@@ -160,7 +160,15 @@ int main()
 
 
 	// initialize
-	init_r(r,L,ranNR);
+	if(wallType == "none") {
+			init_r(r,L,0,ranNR); 
+	}else if (wallType == "tubeX") {
+			init_r(r,L,rco,ranNR);
+	} else if(wallType == "disk") {
+			init_r_doughnut(r,L,0,Ro,rco,ranNR);
+	} else if(wallType == "doughnut" ) {
+			init_r_doughnut(r,L,Ri,Ro,rco,ranNR);
+	}
 	init_v(v,0.01,ranNR);
 	init_p(p,ranNR);
 

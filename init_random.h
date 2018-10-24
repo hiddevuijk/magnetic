@@ -22,19 +22,37 @@ void init_p(std::vector<std::vector<double> >& p, ran& ranNR)
 }
 
 template<class ran>
-void init_r(std::vector<std::vector<double> >& r,double L, ran& ranNR)
+void init_r(std::vector<std::vector<double> >& r,
+	double L,double rco, ran& ranNR)
 {
 
 	int N = r.size();
 
 	for(int i=0;i<N;++i){
-		r[i][0] = ranNR.doub()*L;
-		r[i][1] = ranNR.doub()*L;
+		r[i][0] = rco + ranNR.doub()*(L-2*rco);
+		r[i][1] = rco + ranNR.doub()*(L-2*rco);
 		r[i][2] = ranNR.doub()*L;
 	}
 }
 		
+template<class ran>
+void init_r_doughnut(std::vector<std::vector<double> >& r, 
+	double L, double Ri, double Ro, double rco,ran& ranNR)
+{
+	double pi = std::acos(-1);
+	double rad;
+	double theta;
+	for(int i=0;i<r.size();++i) {
+		rad = std::sqrt(Ri*Ri +
+			(Ro*Ro-Ri*Ri)*ranNR.doub() ) - rco;
+		theta = 2*pi*ranNR.doub();
+		r[i][0] = rad*std::cos(theta)+L/2;
+		r[i][1] = rad*std::sin(theta)+L/2;
+		r[i][2] = ranNR.doub()*L;
 
+	}
+
+}
 
 template<class ran>
 void init_v(std::vector<std::vector<double> >& v, double vi, ran& ranNR)
