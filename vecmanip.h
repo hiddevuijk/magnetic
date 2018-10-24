@@ -20,15 +20,15 @@ double abs_vec3(const std::vector<double>& r)
 
 void divide_by(std::vector<double>& v, double a)
 {
-	for(int i=0;i<v.size();++i)
+	for(unsigned int i=0;i<v.size();++i)
 		v[i] /= a;
 }
 
 void divide_by(std::vector<std::vector<double> >& m,
 	double a)
 {
-	for(int i=0;i<m.size();++i) {
-		for(int j=0;j<m[i].size();++j) {
+	for(unsigned int i=0;i<m.size();++i) {
+		for(unsigned int j=0;j<m[i].size();++j) {
 			m[i][j] /= a;
 		}
 	}
