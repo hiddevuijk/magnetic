@@ -37,6 +37,8 @@ int main()
 	double m;	// particle mass
 	double Dr; 	// rot. diff. const.
 	double B;	// magnetic field strength
+	double B0;
+	string BType;
 	double v0;	// self-propulsoin speed
 	double w0;	// number of periods of the magnetic field
 	double dt;	// time step for the integration
@@ -62,6 +64,8 @@ int main()
 	m = config.read<double>("m");
 	Dr = config.read<double>("Dr");
 	B = config.read<double>("B");
+	B0 = config.read<double>("B0");
+	BType = config.read<double>("Btype");
 	v0 = config.read<double>("v0");
 	w0 = config.read<double>("w0");
 	dt = config.read<double>("dt");
@@ -77,6 +81,26 @@ int main()
 	rco = config.read<double>("rco");
 	double w = w0*2*acos(-1.)/L;
 	double bs = L/(nbin);
+
+	// define Bfield
+	BNone noField;
+	BsinY fieldSinY(B,w);
+	BlinearY fieldLinearY(B0,B);
+	BlinearR fieldLinearR(B0,B,L);
+	Bfield* bfield_ptr;
+	// use Bfield according to BType
+	if(BType == "none") {
+		bfield_ptr = &noField;
+	} else if(BType == "sine") {
+		bfield_ptr = &fieldSinY;
+	} else if(BType == "linearY") {
+		bfield_ptr = &fieldLinearY;
+	} else if(BType == "linearR") {
+		bfield_ptr = &fieldLinearR;
+	} else {
+		cerr << "invalid BType\n";
+		return 1;
+	}
 
 
 	// define walls

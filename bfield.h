@@ -15,9 +15,15 @@ protected:
 	double L;
 };
 
-class BsineY: public Bfield {
+class BNone: public Bfield {
+	double f(const std::vector<double>& r)
+			{return 0;}
+};
+
+
+class BsinY: public Bfield {
 public:
-	BsineY(double BB, double ww) {
+	BsinY(double BB, double ww) {
 		B = BB; w=ww; }
 
 	double f(const std::vector<double>& r) {
