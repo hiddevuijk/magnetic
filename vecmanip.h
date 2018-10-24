@@ -16,7 +16,6 @@
 double abs_vec3(const std::vector<double>& r)
 {
 	return sqrt(r[0]*r[0]+r[1]*r[1]+r[2]*r[2]);
-
 }
 
 void divide_by(std::vector<double>& v, double a)
