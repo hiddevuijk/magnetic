@@ -76,6 +76,26 @@ int main()
 	double w = w0*2*acos(-1.)/L;
 	double bs = L/(nbin);
 
+
+	// define walls
+	NoWall wallNone;
+	TubeX wallTube(sig,eps,L);
+	Disk wallDisk(sig,eps,Ro);
+	Doughnut wallDough(sig,eps,Ri,Ro);
+	Wall* wall_ptr;
+	if(wallType == "none") {
+		wall_ptr = &wallNone;
+	}else if(wallType == "tube") {
+		wall_ptr = &wallTube;
+	}else if(wallType == "disk") {
+		wall_ptr = &wallDisk;
+	}else if(wallType == "doughnut") {
+		wall_ptr = &wallDough;
+	} else {
+		cerr << "invalid wallType\n";
+		return 1;
+	}
+
 	// orientation as a function of x,y,z
 	M2 px(nbin,M1(3,0.));
 	M2 py(nbin,M1(3,0.));
