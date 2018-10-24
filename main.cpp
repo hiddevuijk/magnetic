@@ -180,7 +180,6 @@ int main()
 	// to increment the system teq in time,
 	// in steps of dt
 	integrate(r,dr,v,p,deriv,teq,dt);
-	double t = 0;
 	for(int n=0;n<navg;++n) {
 		if(n%nprint==0) cout << n << '\t' << navg << endl;
 		integrate(r,dr,v,p,deriv,tsamp-dt,dt);
