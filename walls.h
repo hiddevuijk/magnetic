@@ -16,7 +16,7 @@ public:
 	// Lennard-Jones potential
 	double ulj(double r) {
 		double r6 = pow(sig/r,6);
-		return -4*eps*r6*(r6-1);
+		return 4*eps*r6*(r6-1);
 		}
 
 	// force from LJ potential
@@ -48,9 +48,9 @@ public:
 	void f( const std::vector<double>& r,
 		std::vector<double>& Fwall) {
 			if(r[1]>(L-rco)) {
-					Fwall[1] = -flj(L-r[1]);
+				Fwall[1] = -flj(L-r[1]);
 			} else if(r[1]<rco) {
-					Fwall[1] = flj(r[1]);
+				Fwall[1] = flj(r[1]);
 			} else Fwall[1] = 0;
 			Fwall[0] = 0;
 			Fwall[2] = 0;
@@ -65,6 +65,7 @@ public:
 		std::vector<double>& Fwall) {
 		double d = sqrt( (r[0]-L/2)*(r[0]-L/2) +
 						 (r[1]-L/2)*(r[1]-L/2) );
+
 		if(d>Ro-rco) {
 			double force = flj(Ro-d);
 			Fwall[0] = -force*(r[0]-L/2)/d;

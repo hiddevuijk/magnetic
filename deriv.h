@@ -61,11 +61,11 @@ void Deriv::operator() (
 
 	// init wallForce to 0s because NoWall does noet change 
 	// this vector!!!!!
-	vector<double> wallForce(3,0.);
+	vector<double> Fwall(3,0.);
 	for(int i=0;i<N;++i) {
 
 		Bri = bfield_ptr->f(r[i]);
-		wall_ptr->f(r[i],wallForce);
+		wall_ptr->f(r[i],Fwall);
 
 		dr[i][0] = v[i][0]*dt;
 		dr[i][1] = v[i][1]*dt;
@@ -77,11 +77,11 @@ void Deriv::operator() (
 
 
 		v[i][0] += (-Bri*v[i][1]*dt - v[i][0]*dt + v0*p[i][0]*dt + 
-						wallForce[0]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;
+						Fwall[0]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;
 		v[i][1] += (Bri*v[i][0]*dt - v[i][1]*dt + v0*p[i][1]*dt +
-						wallForce[1]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;
+						Fwall[1]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;
 		v[i][2] += (-v[i][2]*dt + v0*p[i][2]*dt + 
-						wallForce[2]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;	
+						Fwall[2]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;	
 
 
 		if(v0>0) { 
