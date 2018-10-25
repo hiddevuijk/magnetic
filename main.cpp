@@ -106,8 +106,8 @@ int main()
 	// define walls
 	NoWall wallNone;
 	TubeX wallTube(sig,eps,rco,L);
-	Disk wallDisk(sig,eps,rco,Ro);
-	Doughnut wallDough(sig,eps,rco,Ri,Ro);
+	Disk wallDisk(sig,eps,rco,Ro,L);
+	Doughnut wallDough(sig,eps,rco,Ri,Ro,L);
 	Wall* wall_ptr;
 	// use wall according to wallType
 	if(wallType == "none") {
@@ -183,11 +183,6 @@ int main()
 	integrate(r,dr,v,p,deriv,teq,dt);
 	for(int n=0;n<navg;++n) {
 		if(n%nprint==0) cout << n << '\t' << navg << endl;
-
-		for(int i=0;i<N;++i) {
-				if(r[i][1]>L or r[i][1] <0)
-					cout << r[i][1] <<   endl;
-		}
 
 
 

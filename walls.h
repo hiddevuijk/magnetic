@@ -59,8 +59,9 @@ public:
 
 class Disk: public Wall {
 public:
-	Disk(double sigg, double epss, double rcoo,double ro) 
-			{sig = sigg; eps = epss; rco=rcoo,Ro = ro;}
+	Disk(double sigg, double epss, double rcoo,
+				double ro, double LL) 
+			{sig = sigg; eps = epss; rco=rcoo;Ro = ro;L=LL;}
 	void f( const std::vector<double>& r,
 		std::vector<double>& Fwall) {
 		double d = sqrt( (r[0]-L/2)*(r[0]-L/2) +
@@ -70,6 +71,9 @@ public:
 			double force = flj(Ro-d);
 			Fwall[0] = -force*(r[0]-L/2)/d;
 			Fwall[1] = -force*(r[1]-L/2)/d;
+		} else {
+			Fwall[0] = 0.;
+			Fwall[1] = 0.;
 		}
 	}
 
@@ -79,8 +83,10 @@ public:
 
 class Doughnut: public Wall {
 public:
-	Doughnut(double sigg, double epss,double rcoo, double ri,double ro) 
-		{sig = sigg; eps = epss;rco=rcoo, Ri = ri; Ro = ro;}
+	Doughnut(double sigg, double epss,double rcoo, 
+				double ri,double ro, double LL) 
+		{sig = sigg; eps = epss;rco=rcoo, Ri = ri; 
+				Ro = ro; L = LL;}
 	void f( const std::vector<double> &r,
 		std::vector<double>& Fwall) {
 		double d = sqrt( (r[0]-L/2)*(r[0]-L/2) +
@@ -93,8 +99,11 @@ public:
 			double force = flj(d-Ri);
 			Fwall[0] = force*(r[0]-L/2)/d;
 			Fwall[1] = force*(r[1]-L/2)/d;
+		} else {
+			Fwall[0] = 0.;
+			Fwall[1] = 0.;
 		}
-
+	
 	}
 };
 
