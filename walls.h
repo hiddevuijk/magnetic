@@ -64,6 +64,7 @@ public:
 			{sig = sigg; eps = epss; rco=rcoo;Ro = ro;L=LL;}
 	void f( const std::vector<double>& r,
 		std::vector<double>& Fwall) {
+		Fwall[2] = 0.;
 		double d = sqrt( (r[0]-L/2)*(r[0]-L/2) +
 						 (r[1]-L/2)*(r[1]-L/2) );
 
@@ -89,6 +90,7 @@ public:
 				Ro = ro; L = LL;}
 	void f( const std::vector<double> &r,
 		std::vector<double>& Fwall) {
+		Fwall[2] = 0.;
 		double d = sqrt( (r[0]-L/2)*(r[0]-L/2) +
 						 (r[1]-L/2)*(r[1]-L/2) );
 		if(d>Ro-rco) {
