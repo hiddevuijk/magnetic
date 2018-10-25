@@ -162,7 +162,7 @@ int main()
 	// initialize
 	if(wallType == "none") {
 			init_r(r,L,0,ranNR); 
-	}else if (wallType == "tubeX") {
+	}else if (wallType == "tube") {
 			init_r(r,L,rco,ranNR);
 	} else if(wallType == "disk") {
 			init_r_doughnut(r,L,0,Ro,rco,ranNR);
@@ -179,20 +179,31 @@ int main()
 	// integrates uses the deriv object
 	// to increment the system teq in time,
 	// in steps of dt
+
 	integrate(r,dr,v,p,deriv,teq,dt);
 	for(int n=0;n<navg;++n) {
 		if(n%nprint==0) cout << n << '\t' << navg << endl;
+
+		for(int i=0;i<N;++i) {
+				if(r[i][1]>L or r[i][1] <0)
+					cout << r[i][1] <<   endl;
+		}
+
+
+
 		integrate(r,dr,v,p,deriv,tsamp-dt,dt);
 		// increment time by dt s.t. the last distplacement
 		// is dt
 		deriv(r,dr,v,p,dt);
 		fluxXY(fx,fy,r,dr,v,bs,L,nbin);	
+
 		// calculate orientation
 		orientation(r,p,px,pxN,py,pyN,pz,pzN,bs,L);
 
 		// calculate density
 		density(r,rho,bs,L,nbin);
 
+		
 	}
 
 	// normalize the flux and density
