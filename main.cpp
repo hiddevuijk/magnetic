@@ -180,12 +180,19 @@ int main()
 	// to increment the system teq in time,
 	// in steps of dt
 
-	integrate(r,dr,v,p,deriv,teq,dt);
+	//integrate(r,dr,v,p,deriv,teq,dt);
+	//r[0][0] = 7.5;
+	//r[0][1] = 2.;
+	vector<double> x(navg/nprint,0);
+	vector<double> y(navg/nprint,0);
+	int i=0;
 	for(int n=0;n<navg;++n) {
-		if(n%nprint==0) cout << n << '\t' << navg << endl;
-
-
-
+		if(n%nprint==0){
+			//cout << n << '\t' << navg << endl;
+			x[i] = r[0][0];
+			y[i] = r[0][1];
+			++i;
+		}
 		integrate(r,dr,v,p,deriv,tsamp-dt,dt);
 		// increment time by dt s.t. the last distplacement
 		// is dt
@@ -223,7 +230,8 @@ int main()
 
 		}
 	}
-
+	write_vec("x.dat",x);
+	write_vec("y.dat",y);
 	write_vec("bins.dat",bins);
 	write_mat("px.dat",px);
 	write_mat("py.dat",py);
