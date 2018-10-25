@@ -180,9 +180,7 @@ int main()
 	// to increment the system teq in time,
 	// in steps of dt
 
-	//integrate(r,dr,v,p,deriv,teq,dt);
-	//r[0][0] = 7.5;
-	//r[0][1] = 2.;
+	integrate(r,dr,v,p,deriv,teq,dt);
 	vector<double> x(navg/nprint,0);
 	vector<double> y(navg/nprint,0);
 	vector<double> z(navg/nprint,0);
