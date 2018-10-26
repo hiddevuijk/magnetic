@@ -41,6 +41,7 @@ int main()
 	string BType;
 	double v0;	// self-propulsoin speed
 	double w0;	// number of periods of the magnetic field
+	double wt;
 	double dt;	// time step for the integration
 	double tsamp; // time between calculating averages
 	double teq;	// equilibration time
@@ -65,6 +66,7 @@ int main()
 	Dr = config.read<double>("Dr");
 	B = config.read<double>("B");
 	B0 = config.read<double>("B0");
+	wt = config.read<double>("wt");
 	BType = config.read<string>("Btype");
 	v0 = config.read<double>("v0");
 	w0 = config.read<double>("w0");
@@ -85,6 +87,7 @@ int main()
 	// define Bfield
 	BNone noField;
 	BsinY fieldSinY(B,w);
+	BsinYt fieldSinYt(B,w,wt);
 	BlinearY fieldLinearY(B0,B);
 	BlinearR fieldLinearR(B0,B,L);
 	Bfield* bfield_ptr;
@@ -93,6 +96,8 @@ int main()
 		bfield_ptr = &noField;
 	} else if(BType == "sine") {
 		bfield_ptr = &fieldSinY;
+	} else if(BType == "sinet") {
+		bfield_ptr = &fieldSinYt;
 	} else if(BType == "linearY") {
 		bfield_ptr = &fieldLinearY;
 	} else if(BType == "linearR") {

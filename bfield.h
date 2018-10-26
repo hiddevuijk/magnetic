@@ -6,18 +6,30 @@
 
 class Bfield {
 public:
-	virtual double f(const std::vector<double>& r) = 0; 
+	virtual double f(const std::vector<double>& r,double t) = 0; 
 
 protected:
 	double B;
 	double B0;
 	double w;
+	double wt;
 	double L;
 };
 
 class BNone: public Bfield {
-	double f(const std::vector<double>& r)
+	double f(const std::vector<double>& r,double t)
 			{return 0;}
+};
+
+
+class BsinYt: public Bfield {
+public:
+	BsinYt(double BB, double ww, double wtt) {
+		B = BB; w=ww; wt=wtt;}
+
+	double f(const std::vector<double>& r,double t) {
+			return B*std::sin(w*(r[1]-wt*t)); }
+
 };
 
 
@@ -26,7 +38,7 @@ public:
 	BsinY(double BB, double ww) {
 		B = BB; w=ww; }
 
-	double f(const std::vector<double>& r) {
+	double f(const std::vector<double>& r,double t) {
 			return B*std::sin(w*r[1]); }
 
 };
@@ -36,7 +48,7 @@ public:
 	BlinearY(double b0, double b) {
 			B = b; B0 = b0;}
 
-	double f(const std::vector<double>& r) {
+	double f(const std::vector<double>& r, double t) {
 			return B0+B*r[1];}
 
 };
@@ -46,7 +58,7 @@ public:
 	BlinearR(double b0,double b,double l) {
 		B = b; B0 = b0; L = l;}
 
-	double f(const std::vector<double>& r) {
+	double f(const std::vector<double>& r,double t) {
 		double d = sqrt( (r[0]-L/2)*(r[0]-L/2) + 
 						 (r[1]-L/2)*(r[1]-L/2));
 		return B0+B*d;

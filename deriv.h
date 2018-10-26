@@ -64,7 +64,7 @@ void Deriv::operator() (
 	vector<double> Fwall(3,0.);
 	for(int i=0;i<N;++i) {
 
-		Bri = bfield_ptr->f(r[i]);
+		Bri = bfield_ptr->f(r[i],t);
 		wall_ptr->f(r[i],Fwall);
 
 		dr[i][0] = v[i][0]*dt;
