@@ -49,7 +49,7 @@ public:
 		std::vector<double>& Fwall) {
 			if(r[0]>(L-rco)) {
 				Fwall[0] = -flj(L-r[0]);
-			} else if(r[1]<rco) {
+			} else if(r[0]<rco) {
 				Fwall[0] = flj(r[0]);
 			} else Fwall[0] = 0;
 
