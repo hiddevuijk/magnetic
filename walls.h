@@ -63,6 +63,22 @@ public:
 	}
 };
 
+class TubeXpot: public Wall {
+public:
+	TubeXpot(double sigg, double epss,double rcoo, double l)
+		 {sig = sigg; eps = epss;rco=rcoo, L = l;}
+	void f( const std::vector<double>& r,
+		std::vector<double>& Fwall) {
+			if(r[1]>(L-rco)) {
+				Fwall[1] = -flj(L-r[1]);
+			} else if(r[1]<rco) {
+				Fwall[1] = flj(r[1]);
+			} else Fwall[1] = 0;
+			Fwall[1] += 2*eps*(L/2 - r[1]); 
+			Fwall[0] = 0;
+			Fwall[2] = 0;
+	}
+};
 class TubeX: public Wall {
 public:
 	TubeX(double sigg, double epss,double rcoo, double l)

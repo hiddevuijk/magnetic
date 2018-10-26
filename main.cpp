@@ -117,6 +117,7 @@ int main()
 	// define walls
 	NoWall wallNone;
 	TubeX wallTube(sig,eps,rco,L);
+	TubeXpot wallTubepot(sig,eps,rco,L);
 	Square wallSquare(sig,eps,rco,L);
 	Disk wallDisk(sig,eps,rco,Ro,L);
 	Doughnut wallDough(sig,eps,rco,Ri,Ro,L);
@@ -126,6 +127,8 @@ int main()
 		wall_ptr = &wallNone;
 	}else if(wallType == "tube") {
 		wall_ptr = &wallTube;
+	}else if(wallType == "tubepot") {
+		wall_ptr = &wallTubepot;
 	}else if(wallType == "square") {
 		wall_ptr = &wallSquare;
 	}else if(wallType == "disk") {
