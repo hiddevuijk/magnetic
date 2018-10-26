@@ -12,18 +12,16 @@ void integrate(
 	std::vector<std::vector<double> >& dr,
 	std::vector<std::vector<double> >& v,
 	std::vector<std::vector<double> >& p,
-	derivobj& deriv, double T, double dt)
+	derivobj& deriv,double& ti, double tf, double dt)
 {
 	
-	double t = 0;
-	while( (t+dt) < T) { 
-		deriv(r,dr,v,p,dt);
-		t += dt;
+	while( (ti+dt) < tf) { 
+		deriv(r,dr,v,p,ti,dt);
 	}
 
 	// integrate the remaining time
-	if(t<T) 
-		deriv(r,dr,v,p,T-t); 
+	if(ti<tf) 
+		deriv(r,dr,v,p,ti,tf-ti); 
 }
 
 

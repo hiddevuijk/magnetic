@@ -28,7 +28,7 @@ struct Deriv {
 		std::vector<std::vector<double> >& dr,
 		std::vector<std::vector<double> >& v,
 		std::vector<std::vector<double> >& p,
-		double dt);
+		double& t, double dt);
 
 	private:
 		int N;		// number of particles
@@ -49,7 +49,7 @@ void Deriv::operator() (
 		std::vector<std::vector<double> >& dr,
 		std::vector<std::vector<double> >& v,
 		std::vector<std::vector<double> >& p,
-		double dt)
+		double& t, double dt)
 {
 	double sqrt_dt = std::sqrt(dt);
 
@@ -98,7 +98,7 @@ void Deriv::operator() (
 			p[i][2] += dpz;
 			normalize(p[i]);
 		}
-
+		t += dt;
 	}
 }
 

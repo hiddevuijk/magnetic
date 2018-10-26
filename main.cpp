@@ -185,7 +185,8 @@ int main()
 	// to increment the system teq in time,
 	// in steps of dt
 
-	integrate(r,dr,v,p,deriv,teq,dt);
+	double t = 0;
+	integrate(r,dr,v,p,deriv,t,t+teq,dt);
 	vector<double> x(ceil((double)navg/nprint),0);
 	vector<double> y(ceil((double)navg/nprint),0);
 	vector<double> z(ceil((double)navg/nprint),0);
@@ -198,10 +199,14 @@ int main()
 			z[i] = r[0][2];
 			++i;
 		}
-		integrate(r,dr,v,p,deriv,tsamp-dt,dt);
+
+
+		integrate(r,dr,v,p,deriv,t,t+tsamp-dt,dt);
+	
 		// increment time by dt s.t. the last distplacement
 		// is dt
-		deriv(r,dr,v,p,dt);
+		deriv(r,dr,v,p,t,dt);
+		
 		fluxXY(fx,fy,r,dr,v,bs,L,nbin);	
 
 		// calculate orientation
