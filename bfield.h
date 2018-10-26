@@ -21,6 +21,35 @@ class BNone: public Bfield {
 			{return 0;}
 };
 
+class Bsigmoid: public Bfield {
+public:
+	Bsigmoid(double b0, double b, double l) {
+			B = b; B0 = b0; L=l;}
+
+	double f(const std::vector<double>& r, double t) {
+			return B0*tanh(B*(r[1]-L/2.));}
+
+};
+
+
+class Bsaw: public Bfield {
+public:
+	Bsaw(double b0, double b, double l) {
+			B = b; B0 = b0; L=l;}
+
+	double f(const std::vector<double>& r, double t) {
+			if(r[1]<L/4.) {
+				return B0+B*0.25*L-B*(r[1]-0.25*L);	
+			} else if(r[1]>3*L/4.) {
+				return B0+B*0.75*L-B*(r[1]-0.75*L);
+			} else {
+				return B0+B*r[1];
+			}
+	}
+
+};
+
+
 
 class BsinYt: public Bfield {
 public:
@@ -31,6 +60,8 @@ public:
 			return B*std::sin(w*(r[1]-wt*t)); }
 
 };
+
+
 
 
 class BsinY: public Bfield {

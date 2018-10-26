@@ -86,6 +86,8 @@ int main()
 
 	// define Bfield
 	BNone noField;
+	Bsigmoid fieldSigmoid(B0,B,L);
+	Bsaw fieldSaw(B0,B,L);
 	BsinY fieldSinY(B,w);
 	BsinYt fieldSinYt(B,w,wt);
 	BlinearY fieldLinearY(B0,B);
@@ -94,6 +96,10 @@ int main()
 	// use Bfield according to BType
 	if(BType == "none") {
 		bfield_ptr = &noField;
+	} else if(BType =="sigmoid") {
+		bfield_ptr = &fieldSigmoid;
+	} else if(BType == "saw") {
+		bfield_ptr = &fieldSaw;
 	} else if(BType == "sine") {
 		bfield_ptr = &fieldSinY;
 	} else if(BType == "sinet") {
