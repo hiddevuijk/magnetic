@@ -186,9 +186,9 @@ int main()
 	// in steps of dt
 
 	integrate(r,dr,v,p,deriv,teq,dt);
-	vector<double> x(navg/nprint,0);
-	vector<double> y(navg/nprint,0);
-	vector<double> z(navg/nprint,0);
+	vector<double> x(ceil((double)navg/nprint),0);
+	vector<double> y(ceil((double)navg/nprint),0);
+	vector<double> z(ceil((double)navg/nprint),0);
 	int i=0;
 	for(int n=0;n<navg;++n) {
 		if(n%nprint==0){
