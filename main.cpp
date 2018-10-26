@@ -179,6 +179,8 @@ int main()
 	// initialize
 	if(wallType == "none") {
 			init_r(r,L,0,ranNR); 
+	}else if(wallType == "tubepot") {
+			init_r(r,L,rco,ranNR);
 	} else if (wallType == "tube") {
 			init_r(r,L,rco,ranNR);
 	} else if(wallType == "square") {
@@ -201,18 +203,15 @@ int main()
 
 	double t = 0;
 	integrate(r,dr,v,p,deriv,t,t+teq,dt);
-	vector<double> x(ceil((double)navg/nprint),0);
-	vector<double> y(ceil((double)navg/nprint),0);
-	vector<double> z(ceil((double)navg/nprint),0);
-	int i=0;
+
+	vector<double> x(navg,0);
+	vector<double> y(navg,0);
+	vector<double> z(navg,0);
 	for(int n=0;n<navg;++n) {
-		if(n%nprint==0){
-			cout << n << '\t' << navg << endl;
-			x[i] = r[0][0];
-			y[i] = r[0][1];
-			z[i] = r[0][2];
-			++i;
-		}
+		if(n%nprint==0)	cout << n << '\t' << navg << endl;
+		x[n] = r[0][0];
+		y[n] = r[0][1];
+		z[n] = r[0][2];
 
 
 		integrate(r,dr,v,p,deriv,t,t+tsamp-dt,dt);
@@ -220,7 +219,6 @@ int main()
 		// increment time by dt s.t. the last distplacement
 		// is dt
 		deriv(r,dr,v,p,t,dt);
-		
 		fluxXY(fx,fy,r,dr,v,bs,L,nbin);	
 
 		// calculate orientation
