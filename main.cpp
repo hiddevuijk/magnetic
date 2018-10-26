@@ -106,6 +106,7 @@ int main()
 	// define walls
 	NoWall wallNone;
 	TubeX wallTube(sig,eps,rco,L);
+	Square wallSquare(sig,eps,rco,L);
 	Disk wallDisk(sig,eps,rco,Ro,L);
 	Doughnut wallDough(sig,eps,rco,Ri,Ro,L);
 	Wall* wall_ptr;
@@ -114,6 +115,8 @@ int main()
 		wall_ptr = &wallNone;
 	}else if(wallType == "tube") {
 		wall_ptr = &wallTube;
+	}else if(wallType == "square") {
+		wall_ptr = &wallSquare;
 	}else if(wallType == "disk") {
 		wall_ptr = &wallDisk;
 	}else if(wallType == "doughnut") {
@@ -162,7 +165,9 @@ int main()
 	// initialize
 	if(wallType == "none") {
 			init_r(r,L,0,ranNR); 
-	}else if (wallType == "tube") {
+	} else if (wallType == "tube") {
+			init_r(r,L,rco,ranNR);
+	} else if(wallType == "square") {
 			init_r(r,L,rco,ranNR);
 	} else if(wallType == "disk") {
 			init_r_doughnut(r,L,0,Ro,rco,ranNR);

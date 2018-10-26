@@ -41,6 +41,28 @@ class NoWall: public Wall {
 		std::vector<double>& Fwall) {};
 };
 
+class Square: public Wall {
+public:
+	Square(double sigg, double epss,double rcoo, double l)
+		 {sig = sigg; eps = epss;rco=rcoo, L = l;}
+	void f( const std::vector<double>& r,
+		std::vector<double>& Fwall) {
+			if(r[0]>(L-rco)) {
+				Fwall[0] = -flj(L-r[0]);
+			} else if(r[1]<rco) {
+				Fwall[0] = flj(r[0]);
+			} else Fwall[0] = 0;
+
+			if(r[1]>(L-rco)) {
+				Fwall[1] = -flj(L-r[1]);
+			} else if(r[1]<rco) {
+				Fwall[1] = flj(r[1]);
+			} else Fwall[1] = 0;
+
+			Fwall[2] = 0;
+	}
+};
+
 class TubeX: public Wall {
 public:
 	TubeX(double sigg, double epss,double rcoo, double l)
