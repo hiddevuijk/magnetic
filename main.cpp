@@ -204,6 +204,7 @@ int main()
 	double t = 0;
 	integrate(r,dr,v,p,deriv,t,t+teq,dt);
 
+
 	vector<double> x(navg,0);
 	vector<double> y(navg,0);
 	vector<double> z(navg,0);
@@ -215,9 +216,8 @@ int main()
 
 
 		integrate(r,dr,v,p,deriv,t,t+tsamp-dt,dt);
-	
-		// increment time by dt s.t. the last distplacement
-		// is dt
+		// increment time by dt s.t. 
+		// the last distplacement is dt
 		deriv(r,dr,v,p,t,dt);
 		fluxXY(fx,fy,r,dr,v,bs,L,nbin);	
 
@@ -239,7 +239,6 @@ int main()
 			rho[i][j] /= navg*N*bs*bs;
 		}
 	}
-
 
 
 	for(int i=0;i<nbin;++i) {

@@ -52,7 +52,6 @@ void Deriv::operator() (
 		double& t, double dt)
 {
 	double sqrt_dt = std::sqrt(dt);
-
 	// random numbers for p increment
 	double etax,etay,etaz;
 
@@ -98,8 +97,9 @@ void Deriv::operator() (
 			p[i][2] += dpz;
 			normalize(p[i]);
 		}
-		t += dt;
 	}
+	
+	t += dt;
 }
 
 
