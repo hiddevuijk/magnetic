@@ -26,7 +26,7 @@ void fluxXY(
 		x = x - L*floor(x/L);
 		jx = floor(x/bs);
 
-		y = r[i][1] - a*dr[i][0];
+		y = r[i][1] - a*dr[i][1];
 		y = y - L*floor(y/L);
 		jy = floor(y/bs);
 
