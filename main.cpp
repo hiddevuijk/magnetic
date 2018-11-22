@@ -219,7 +219,7 @@ int main()
 		// increment time by dt s.t. 
 		// the last distplacement is dt
 		deriv(r,dr,v,p,t,dt);
-		fluxXY(fx,fy,r,dr,v,bs,L,nbin);	
+		fluxXY(fx,fy,r,dr,v,bs,L,nbin,0.);	
 
 		// calculate orientation
 		orientation(r,p,px,pxN,py,pyN,pz,pzN,bs,L);

@@ -10,7 +10,7 @@ void fluxXY(
 	const std::vector<std::vector<double> >& r,
 	const std::vector<std::vector<double> >& dr,
 	const std::vector<std::vector<double> >& v,
-	double bs, double L,int nbin)
+	double bs, double L,int nbin,double a)
 {
 
 	double x,y;
@@ -18,8 +18,6 @@ void fluxXY(
 	int N = r.size();
 
 
-	// use r - a*dr as position variable
-	double a = 0.;
 
 	for(int i=0;i<N;++i) {
 		x = r[i][0] - a*dr[i][0];
