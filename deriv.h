@@ -74,6 +74,7 @@ void Deriv::operator() (
 						Fwall[1]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;
 		v[i][2] += (-v[i][2]*dt + v0*p[i][2]*dt + 
 						Fwall[2]*dt + ndist(ranNR)*sqrt_dt*sqrt2)/m;	
+
 		dr[i][0] = v[i][0]*dt;
 		dr[i][1] = v[i][1]*dt;
 		dr[i][2] = v[i][2]*dt;
